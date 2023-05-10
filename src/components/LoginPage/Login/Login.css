@@ -1,0 +1,122 @@
+.loginrow{
+    height: 100%;
+}
+.Login{
+    height: 650px;
+}
+.contentCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(206 222 255);
+    
+}
+.LoginComponent{
+    
+    background-color: rgb(206 222 255);
+  
+    
+}
+
+.loginDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    
+
+}
+.logincard{
+    width: 80%;
+
+    height: 90%;
+
+}
+
+.LoginComponent form {
+    margin-bottom: 0;
+  }
+  
+  .LoginComponent label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  .LoginComponent input {
+    background-color: #f8f8f8;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 1rem;
+    width: 100%;
+  }
+  
+  .LoginComponent .form-group:last-of-type {
+    margin-bottom: 30px;
+  }
+  
+  .LoginComponent button {
+    background-color:#9888ff;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 30px;
+    padding: 0.8rem;
+    width: 160px;
+  }
+
+  @media screen and (max-width: 767px) {
+   .LoginComponent{
+    border-radius: 20px 20px 0px 0px ;
+   }
+   .contentCenter{
+    border-radius: 0px 0px 20px 20px ;
+   
+   }
+   #iframebg{
+    margin-top: 8px;
+    background-color: #fff1f1;
+    border-radius: 20px 20px 0px 0px ;
+   }
+}
+
+  @media screen and (max-width: 360px) {
+   .logincard{
+    width: 93%;
+   }
+   .LoginComponent input {
+    background-color: #f8f8f8;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 0.8rem;
+    width: 100%;
+  }
+  .LoginComponent button {
+    background-color:#9888ff;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 30px;
+    padding: 0.8rem;
+    width: 140px;
+  }
+
+}

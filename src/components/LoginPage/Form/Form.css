@@ -1,0 +1,56 @@
+.FormContainer{
+    height: 90vh;
+    width: 450px;
+ /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ImageContainer{
+    height: 90vh;
+    width: 50vw;
+
+}
+.iconMain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+
+}
+
+.mainContainer{
+    width: 95vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+}
+
+body{
+    background-color: rgb(206 222 255);;
+}
+@media screen and (max-width: 900px) {
+    .ImageContainer{
+        display:none;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    .FormContainer{
+      width: 363px;
+      height: 700px;
+    }
+}
+  @media screen and (max-width: 340px) {
+    .FormContainer{
+      width: 328px;
+      height: 700px;
+    }
+}
+  @media screen and (max-width: 360px) {
+    .FormContainer{
+      width: 330px;
+      height: 730px;
+    }
+}
