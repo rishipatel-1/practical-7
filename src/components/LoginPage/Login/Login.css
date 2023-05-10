@@ -1,8 +1,10 @@
 .loginrow{
     height: 100%;
+    border: 0px;
 }
 .Login{
     height: 650px;
+    border: none;
 }
 .contentCenter{
     display: flex;
@@ -49,7 +51,7 @@
   
   .LoginComponent input {
     background-color: #f8f8f8;
-    border: none;
+    border: 0px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: #333;

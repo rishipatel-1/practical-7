@@ -1,13 +1,13 @@
+// signUpReducer.ts
 
-import { SIGN_UP , SignUpAction } from '../actions/signupAction';
-
+import { SIGN_UP, SignUpAction ,ComponentState} from '../actions/signupAction';
 
 interface SignUpState {
-  formData: FormData;
+  users: ComponentState[];
 }
 
 const initialState: SignUpState = {
-  formData: {} as any,
+  users: [],
 };
 
 export const signUpReducer = (state = initialState, action: SignUpAction): SignUpState => {
@@ -15,7 +15,7 @@ export const signUpReducer = (state = initialState, action: SignUpAction): SignU
     case SIGN_UP:
       return {
         ...state,
-        formData: action.payload,
+        users: [...state.users, action.payload],
       };
     default:
       return state;
