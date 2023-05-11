@@ -1,27 +1,44 @@
 import React from 'react';
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardImage,
-  MDBBtn
-} from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
+import { Link, useLocation } from 'react-router-dom';
 
-export default function UserInfo() {
+interface User {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  image: string;
+  mobile: string;
+}
+
+const UserInfo: React.FC = () => {
+  const location = useLocation();
+  const user: User | undefined = location.state && location.state.user;
+  console.log(user);
+  
   return (
-    <MDBCard className='w-25 h-50'>
-      <MDBCardImage  src='https://mdbootstrap.com/img/new/standard/nature/184.webp' position='top' alt='...' />
-      <MDBCardBody>
-        <MDBCardTitle>Simform User</MDBCardTitle>
-        <MDBCardText>
-          Welcome , name 
-          Your Credentials are Email Mobile No :-
-
+    <MDBCard style={{borderRadius:"20px"}}>
+   
+      <div className="card/." style={{width:" rem",borderRadius:"20px"}}>
+  <img className="card-img-top mt-3" style={ {width:"17rem",borderRadius:"20px"}} src={user?.image} alt="Card image cap"/>
+  <div className="card-body">
+  {user ? (
+          <MDBCardText>
+          Welcome, {user.name}!<br />
+          Your Credentials are:<br />
+          Email: {user.email}<br />
+          Mobile No: {user.mobile}
         </MDBCardText>
-        <button className='btn btn-success'><Link to="/Login" className='text-white'>Logout</Link></button>
-      </MDBCardBody>
+        ) : (
+          <MDBCardText>No user information available.</MDBCardText>
+        )}
+        <button className='btn btn-success'>
+          <Link to="/Login" className='text-white'>Logout</Link>
+        </button>
+  </div>
+</div>
     </MDBCard>
   );
 }
+
+export default UserInfo;

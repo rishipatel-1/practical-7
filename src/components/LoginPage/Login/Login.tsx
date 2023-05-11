@@ -1,45 +1,57 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBRow, MDBCol } from 'mdb-react-ui-kit';
-import "./Login.css"
+import { useFormik } from 'formik';
+import "./Login.css";
 
-function Login() {
+const Login: React.FC = () => {
   const navigate = useNavigate();
   const users = useSelector((state: RootState) => state.signUp.users);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validate: (values) => {
+      const errors: { [key: string]: string } = {};
 
+      if (!values.email) {
+        errors.email = 'Email is required';
+      }
 
+      if (!values.password) {
+        errors.password = 'Password is required';
+      }
 
-const handleFormSubmit = (event: React.FormEvent) => {
-  event.preventDefault();
-  console.log(users)
-  let isValidCredentials = false;
+      return errors;
+    },
+    onSubmit: (values) => {
+      let loggedInUser = null;
 
-  
-  for (let i = 0; i < users.length; i++) {
-    const user = users[i];
-    
-    if (user.email === email && user.password === password) {
-      isValidCredentials = true;
-      break;
-    }
-  }
-  
-  if (isValidCredentials) {
-  
-    navigate('/userinfo');
-  } else {
+      for (let i = 0; i < users.length; i++) {
+        const user = users[i];
 
-    alert('Invalid email or password');
-  }
-  setEmail('');
-  setPassword('');
-};
+        if (user.email === values.email && user.password === values.password) {
+          loggedInUser = user;
+          break;
+        }
+      }
 
+      if (loggedInUser) {
+        // Navigate to the `/userinfo` route and pass the logged-in user as state
+        navigate('/userinfo', { state: { user: loggedInUser } });
+        formik.resetForm();
+      } else {
+         formik.setFieldError('password', 'Email or Password is invalid');
+      }
+
+      
+    },
+
+  });
 
   return (
     <MDBContainer className="my-6 Login">
@@ -52,16 +64,32 @@ const handleFormSubmit = (event: React.FormEvent) => {
             <div className='loginDiv'>
               <MDBCardBody className='logincard'>
                 <h5 className="fw-normal my-4 pb-3" style={{ letterSpacing: '1px' }}>Sign into your account</h5>
-                <form onSubmit={handleFormSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                   <div className="form-group">
-                    <input type="email" className="form-control" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      placeholder="Email"
+                      {...formik.getFieldProps('email')}
+                    />
+                    {formik.touched.email && formik.errors.email && <div className="error">{formik.errors.email}</div>}
                   </div>
                   <div className="form-group">
-                    <input type="password" className="form-control" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="password"
+                      placeholder="Password"
+                      {...formik.getFieldProps('password')}
+                    />
+                    {formik.touched.password && formik.errors.password && <div className="error">{formik.errors.password}</div>}
                   </div>
+
+
                   <div className='loginbtn'>
-                    <MDBBtn className="mb-4 px-5" color='dark' type="submit">Login</MDBBtn>
-                    <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <Link to="/" style={{ color: '#393f81' }}>Register here</Link></p>
+                    <button className="mb-4 px-5" color='dark' type="submit">Login</button>
+                    <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <Link to="/">Register here</Link></p>
                   </div>
                 </form>
               </MDBCardBody>
