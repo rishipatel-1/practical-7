@@ -54,7 +54,7 @@ const Login: React.FC = () => {
   });
 
   return (
-    <MDBContainer className="my-6 Login">
+    <MDBContainer className="my-6 Login m-0 p-0">
       <MDBCard className='loginrow'>
         <MDBRow className='g-0 h-100'>
           <MDBCol md='6' className="contentCenter">
@@ -73,7 +73,7 @@ const Login: React.FC = () => {
                       placeholder="Email"
                       {...formik.getFieldProps('email')}
                     />
-                    {formik.touched.email && formik.errors.email && <div className="error">{formik.errors.email}</div>}
+                    {formik.touched.email && formik.errors.email && <div className="Error mb-2">{formik.errors.email}</div>}
                   </div>
                   <div className="form-group">
                     <input
@@ -83,13 +83,13 @@ const Login: React.FC = () => {
                       placeholder="Password"
                       {...formik.getFieldProps('password')}
                     />
-                    {formik.touched.password && formik.errors.password && <div className="error">{formik.errors.password}</div>}
+                    {formik.touched.password && formik.errors.password && <div className="Error mb-2">{formik.errors.password}</div>}
                   </div>
 
 
                   <div className='loginbtn'>
                     <button className="mb-4 px-5" color='dark' type="submit">Login</button>
-                    <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>Don't have an account? <Link to="/">Register here</Link></p>
+                    <p className="mb-5 pb-lg-2">Don't have an account? <Link to="/">Register here</Link></p>
                   </div>
                 </form>
               </MDBCardBody>

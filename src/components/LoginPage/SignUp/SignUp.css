@@ -5,10 +5,32 @@
     /* max-width: 600px; */
     padding: 40px;
    width: 400px;
+  
+   padding-bottom: 20px;
  
   }
+.SignUpcontainer{
+  height: 88vh;
+}
   .ImagesignUpContainer{
     display: none;
+  }
+  .input-container {
+    position: relative;
+  }
+  
+  .relative-position {
+    position: relative;
+  }
+  
+  .error {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    color: red;
+    font-size: 12px;
+    padding: 2px;
   }
   
   .login-container h2 {
@@ -17,6 +39,7 @@
     margin-bottom: 30px;
     text-align: center;
   }
+  
   
   .login-container form {
     margin-bottom: 0;
@@ -39,7 +62,7 @@
     color: #333;
     font-size: 16px;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
     padding: 1rem;
     width: 100%;
   }
@@ -56,8 +79,8 @@
     font-size: 18px;
     font-weight: 600;
     margin-top: 12px;
-    padding: 0.8rem;
-    width: 60%;
+    padding: 0.6rem;
+    width: 50%;
   }
   @media screen and (max-width: 900px) {
     .ImagesignUpContainer{
@@ -70,10 +93,23 @@
     }
     .login-container{
       width: 410px;
+      padding-bottom: 20px;
+      padding-top: 20px;
 
   
     }
-  }
+    .login-container input {
+      background-color: #f8f8f8;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+      color: #333;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 27px;
+      padding: 0.7rem;
+      width: 100%;
+  }}
 
   
   
@@ -86,15 +122,15 @@
   
     .login-container input {
       font-size: 16px;
-      margin-bottom: 15px;
-      padding: 1rem;
+      margin-bottom: 30px;
+      padding: 0.7rem;
     }
   
     .login-container button {
       font-size: 16px;
-      margin-top: 15px;
-      padding: 1rem;
-      width: 60%;
+      margin-top: 10px;
+      padding: 0.6rem;
+      width:50%;
     }
   }
   
@@ -107,22 +143,24 @@
     .login-container input {
       font-size: 14px;
     
-      padding: 1rem;
-      margin-bottom: 15px;
+      padding: 0.8rem;
+      margin-bottom: 30px;
     }
   
     .login-container button {
       font-size: 14px;
       margin-top: 10px;
-      padding: 1rem;
-      width: 60%;
+      padding: 0.6rem;
+      width: 50%;
     }
   }
   
+
   @media (max-width: 400px) {
     .login-container {
       border-radius: 20px;
       padding: 20px;
+      width: 100%;
     }
   
     .login-container h2 {
@@ -134,13 +172,53 @@
       font-size: 14px;
    
       padding: 0.8rem;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
     }
   
     .login-container button {
       font-size: 14px;
       margin-top: 10px;
-      padding: 0.8rem;
-      width: 60%;
+      padding: 0.6rem;
+      width: 50%;
+    }
+  }
+  
+  @media (max-width: 300px) {
+    .login-container {
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+    }
+    .login-container input {
+      font-size: 14px;
+   
+      padding: 0.2rem;
+      margin-bottom: 15px;
+    }
+  }
+  @media (max-height: 700px) {
+    .login-container {
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+    }
+    .login-container input {
+      font-size: 14px;
+   
+      padding: 0.2rem;
+      margin-bottom: 15px;
+    }
+  }
+  @media (max-height: 750px) {
+    .login-container {
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+    }
+    .login-container input {
+      font-size: 14px;
+   
+      padding: 0.4rem;
+      margin-bottom: 30px;
     }
   }

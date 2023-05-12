@@ -8,7 +8,7 @@ const LogIn = () => {
   return (
     <div className='col-12 d-flex mainContainer m-0 p-0'>
       <div className='col-4 FormContainer m-2'>
- <SignUp/>
+         <SignUp/>
       </div>
    
       <div className='col-8 ImageContainer'>

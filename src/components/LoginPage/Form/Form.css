@@ -21,15 +21,13 @@
 
 .mainContainer{
     width: 95vw;
-    height: 100vh;
+    height: 88vh;
     justify-content: center;
     align-items: center;
 
 }
 
-body{
-    background-color: rgb(206 222 255);;
-}
+
 @media screen and (max-width: 900px) {
     .ImageContainer{
         display:none;
@@ -39,18 +37,18 @@ body{
   @media screen and (max-width: 450px) {
     .FormContainer{
       width: 363px;
-      height: 700px;
+      
     }
 }
-  @media screen and (max-width: 340px) {
+ @media screen and (max-width: 360px) {
     .FormContainer{
-      width: 328px;
-      height: 700px;
+      width: 300px;
+    
     }
 }
-  @media screen and (max-width: 360px) {
-    .FormContainer{
-      width: 330px;
-      height: 730px;
-    }
+@media screen and (max-width: 320px) {
+  .FormContainer{
+    width: 280px;
+ 
+  }
 }

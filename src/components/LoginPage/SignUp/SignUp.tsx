@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./SignUp.css"
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../actions/signupAction';
@@ -10,14 +10,16 @@ interface User {
   email: string;
   password: string;
   confirmPassword: string;
-  image: null|string;
-  mobile: string; 
+  image: null | string;
+  mobile: string;
 }
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const [user, setUser] = useState<User>({  
+  const [user, setUser] = useState<User>({
     name: "",
     email: "",
     password: "",
@@ -26,19 +28,19 @@ const SignUp: React.FC = () => {
     mobile: "",
   });
 
-   function toBase64(file: File): Promise<string> {
+  function toBase64(file: File): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
-  
+
       reader.onload = () => {
         const base64String = reader.result as string;
         resolve(base64String);
       };
-  
+
       reader.onerror = () => {
         reject(new Error('Failed to convert the image to base64.'));
       };
-  
+
       reader.readAsDataURL(file);
     });
   }
@@ -54,30 +56,30 @@ const SignUp: React.FC = () => {
     validate: (values) => {
       const errors: Partial<User> = {};
 
-      if (!values.name) {
+      if (!values.name && !values.email && !values.mobile && !values.password && !values.confirmPassword && !values.image) {
         errors.name = 'Name is required';
       } else if (values.name.length < 15) {
         errors.name = 'Name should be at least 15 characters long';
       }
 
-      if (!values.email) {
+      if (!values.email && !values.mobile && !values.password && !values.confirmPassword && !values.image && !values.mobile) {
         errors.email = 'Email is required';
       } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
         errors.email = 'Invalid email';
       }
 
-      if (!values.mobile) {
+      if (!values.image && !values.mobile) {
         errors.mobile = 'Mobile number is required';
       } else if (!/^[6-9]\d{9}$/.test(values.mobile)) {
         errors.mobile = 'Invalid mobile number';
       }
 
-      if (!values.password) {
+      if (!values.mobile && !values.password && !values.confirmPassword && !values.image && !values.mobile) {
         errors.password = 'Password is required';
       } else if (!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{8,}$/.test(values.password)) {
-        errors.password = 'Invalid password. Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.';
+        errors.password = 'Invalid  password format. ';
       }
-      
+
 
       if (values.password !== values.confirmPassword) {
         errors.confirmPassword = 'Passwords must match';
@@ -92,6 +94,10 @@ const SignUp: React.FC = () => {
       if (values.image && values.image.size > maxSize) {
         errors.image = 'Image size should be less than 2MB';
       }
+      if (values.image == null) {
+        errors.image = 'Image is Required';
+      }
+
 
 
 
@@ -100,7 +106,8 @@ const SignUp: React.FC = () => {
     },
     onSubmit: async (values) => {
       const storedUsers: User[] = JSON.parse(localStorage.getItem('users') || '[]');
-console.log(values.image);
+      console.log(values.image);
+
 
       // Convert the image file to base64 string
       let imageBase64 = '';
@@ -112,25 +119,17 @@ console.log(values.image);
         ...values,
         image: imageBase64, // Store the base64 string in the form values
       };
-
+      navigate('/Login')
       const updatedUsers = [...storedUsers, updatedValues];
       localStorage.setItem('users', JSON.stringify(updatedUsers));
       dispatch(registerUser(updatedValues));
       formik.resetForm();
     },
   });
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value, files } = event.target;
 
-    if (id === 'image' && files && files.length > 0) {
-      formik.setFieldValue('image', files[0]); // Set the File object to formik state
-    } else {
-      formik.handleChange(event); // Handle other input changes as usual
-    }
-  };
 
   return (
-    <div className="container-fluid vh-100 d-flex align-items-center justify-content-center">
+    <div className="container-fluid SignUpcontainer d-flex align-items-center justify-content-center m-0 p-0">
       <div className="login-container">
         <div className='d-flex col-12'>
           <h2 className="text-center mb-4 Signup">Sign up</h2>
@@ -145,108 +144,133 @@ console.log(values.image);
         </div>
         <form onSubmit={formik.handleSubmit}>
           <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              placeholder="Name"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.name && formik.errors.name && (
-              <div className="error">{formik.errors.name}</div>
-            )}
+            <div className="input-container">
+              <div className="relative-position">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  placeholder="Name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.name && formik.errors.name && (
+                  <div className="error">{formik.errors.name}</div>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="Email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.email && formik.errors.email && (
-              <div className="error">{formik.errors.email}</div>
-            )}
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.password && formik.errors.password && (
-              <div className="error">{formik.errors.password}</div>
-            )}
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="confirmPassword"
-              placeholder="Confirm Password"
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-              <div className="error">{formik.errors.confirmPassword}</div>
-            )}
-          </div>
-       
-          <div className="form-group">
-  <label htmlFor="image" className=" ms-2 mb-3">
-    Image +
-    <br />
-    {formik.touched.image && formik.errors.image && (
-      <div className="error">{formik.errors.image}</div>
-    )}
-  </label>
-  <input
-    type="file"
-    className="form-control-file visually-hidden"
-    id="image"
-    onChange={(event) => {
-      const file = event.currentTarget.files?.[0];
-      formik.setFieldValue('image', file);
-    }}
-    onBlur={formik.handleBlur}
-  />
-  {formik.values.image && (
-    <div className="image-name m-2">{formik.values.image.name}</div>
-  )}
-</div>
-
-
 
           <div className="form-group">
-            <input
-              type="tel"
-              className="form-control"
-              id="mobile"
-              placeholder="Mobile Number"
-              value={formik.values.mobile}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.touched.mobile && formik.errors.mobile && (
-              <div className="error">{formik.errors.mobile}</div>
-            )}
+            <div className="input-container">
+              <div className="relative-position">
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <div className="error">{formik.errors.email}</div>
+                )}
+              </div>
+            </div>
           </div>
-          <button type="submit" className="btn btn-primary btn-block">Register</button>
-          <h6 className='mt-3'>Already have an Account
-            <Link to="/Login">Login</Link></h6>
-        </form>
+
+          <div className="form-group">
+            <div className="input-container">
+              <div className="relative-position">
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="Password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.password && formik.errors.password && (
+                  <div className="error">{formik.errors.password}</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <div className="input-container">
+              <div className="relative-position">
+                <input
+                  type="password"
+                  className="form-control"
+                  id="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={formik.values.confirmPassword}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                  <div className="error">{formik.errors.confirmPassword}</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <div className="input-container">
+              <div className="relative-position">
+                <input
+                  type="tel"
+                  className="form-control"
+                  id="mobile"
+                  placeholder="Mobile Number"
+                  value={formik.values.mobile}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.mobile && formik.errors.mobile && (
+                  <div className="error">{formik.errors.mobile}</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="image" className="m-0">
+              Image +
+              <br />
+            </label>
+            <div className="input-container">
+              <div className="relative-position">
+                {formik.touched.image && formik.errors.image && (
+                  <div className="error">{formik.errors.image}</div>
+                )}
+                <input
+                  type="file"
+                  className="form-control-file visually-hidden"
+                  id="image"
+                  onChange={(event) => {
+                    const file = event.currentTarget.files?.[0];
+                    formik.setFieldValue('image', file);
+                  }}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.values.image && (
+                    <div className="image-name m-2">{formik.values.image.name}</div>
+                  )}
+              </div>
+              </div>
+              </div>
+              <button type="submit" className="btn btn-primary btn-block">Register</button>
+              <h6 className='mt-3'>Already have an Account
+                <Link to="/Login">Login</Link></h6>
+            </form>
+          </div>
       </div>
-    </div>
-  );
+      );
 };
 
-export default SignUp;
+      export default SignUp;

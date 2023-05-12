@@ -5,6 +5,7 @@
 .Login{
     height: 650px;
     border: none;
+    width: 472px;
 }
 .contentCenter{
     display: flex;
@@ -48,7 +49,9 @@
     font-weight: 600;
     margin-bottom: 5px;
   }
-  
+  .Error{
+    color: red;
+  }
   .LoginComponent input {
     background-color: #f8f8f8;
     border: 0px;
@@ -57,7 +60,7 @@
     color: #333;
     font-size: 16px;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 1rem;
     width: 100%;
   }
@@ -78,6 +81,11 @@
     width: 160px;
   }
 
+  @media screen and (min-width: 767px) {
+   .Login{
+    width: 800px;
+   }
+  }
   @media screen and (max-width: 767px) {
    .LoginComponent{
     border-radius: 20px 20px 0px 0px ;
@@ -93,9 +101,32 @@
    }
 }
 
+  @media screen and (max-width: 480px) {
+   .Login{
+    width: 400px;
+   }}
+  @media screen and (max-width: 420px) {
+   .Login{
+    width: 380px;
+   }}
+  @media screen and (max-width: 400px) {
+   .Login{
+    width: 360px;
+   }}
+  @media screen and (max-width: 380px) {
+   .Login{
+    width: 360px;
+   }}
+  @media screen and (max-width: 340px) {
+   .Login{
+    width: 290px;
+   }}
   @media screen and (max-width: 360px) {
    .logincard{
     width: 93%;
+   }
+   .Login{
+    width: 300px;
    }
    .LoginComponent input {
     background-color: #f8f8f8;
